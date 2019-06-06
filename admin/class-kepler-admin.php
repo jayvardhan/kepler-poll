@@ -5,15 +5,6 @@ class KEPLER_ADMIN {
 	
 	function __construct() {
 
-		//intialize meta box variables
-		$this->setMetaBoxes( array(
-			array(
-				'id'		=> 'kepler_end_date',
-				'title'		=> 'End Date for Poll',
-				'box_html'	=> 'end_date_metabox_html',
-			),
-		) );
-		
 		//register poll as post type
 		add_action( 'init', array( $this, 'create_post_type' ) );
 		
@@ -31,9 +22,6 @@ class KEPLER_ADMIN {
 	}
 
 	
-	function getMetaBoxes(){ return $this->meta_boxes; }
-	function setMetaBoxes( $meta_boxes ){ $this->meta_boxes = $meta_boxes; }
-
 	
 	function assets() {
 
@@ -45,9 +33,16 @@ class KEPLER_ADMIN {
 	    //jQuery UI theme css file
 	    wp_enqueue_style('kepler-jquery-ui-css','http://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css',false,"1.12.1",false);
 
+	    wp_enqueue_style(
+	    	'kepler-admin-css',
+	    	plugins_url( $plugin_assets_folder. 'css/admin.css' ),
+	    	array(), 
+	    	KEPLER_POLL_VERSION
+	    );
+
 	    //admin js file
 	    wp_enqueue_script(
-			'kepler-admin',
+			'kepler-admin-js',
 			plugins_url( $plugin_assets_folder.'js/admin.js' ),
 			array( 'jquery'),
 			KEPLER_POLL_VERSION,
@@ -95,13 +90,30 @@ class KEPLER_ADMIN {
 
 	function add_meta_boxes(){
 
+		//intialize meta box variables
+		$meta_boxes = array(
+			array(
+				'id'		=> 'kepler-end-date',
+				'title'		=> 'End Date for Poll',
+				'box_html'	=> 'end_date_mb_html',
+			),
+			array(
+				'id'		=> 'kepler-poll-choices',
+				'title'		=> 'Add Poll Choices',
+				'box_html'	=> 'poll_choices_mb_html',
+				'context'	=> 'normal',
+			),
+		);
+		
+		
+
 		// REGISTER META BOXES
-		foreach( $this->getMetaBoxes() as $meta_box ){
+		foreach( $meta_boxes as $meta_box ){
 
 			add_meta_box(
 				$meta_box['id'],
 				$meta_box['title'],
-				array( $this, 'end_date_metabox_html' ),
+				array( $this, $meta_box['box_html'] ),
 				'kepler_poll',
 				isset( $meta_box['context'] ) ? $meta_box['context'] : 'side',
 				'default',
@@ -111,9 +123,13 @@ class KEPLER_ADMIN {
 	}
 
 
-	function end_date_metabox_html( $post, $metabox ){
+	function end_date_mb_html( $post, $metabox ){
 
-		include( 'templates/metabox-'.$metabox['id'].'.php' );
+		include( 'templates/metabox-'. $metabox['id'] .'.php' );
+	}
+
+	function poll_choices_mb_html( $post, $metabox ) {
+		include( 'templates/metabox-'. $metabox['id'] .'.php' );
 	}
 
 
