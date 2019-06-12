@@ -6,13 +6,13 @@
     box-shadow: 0 1px 0 #ccc;
 }
 
-.poll-choice-wrapper .regular-text {
+.kepler-choice-wrapper .regular-text {
 	width:100%;
 	padding:6px 10px;
 	margin:10px 0px;
 }
 
-.poll-choice-wrapper .kepler-choice-item{
+.kepler-choice-wrapper .kepler-choice-item{
 	position: relative;
 }
 

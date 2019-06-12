@@ -15,7 +15,7 @@ class KEPLER_ADMIN {
 		add_action( 'add_meta_boxes', array( $this, 'add_meta_boxes' ) );
 
 		//save end date metabox
-		add_action( 'save_post', array( $this, 'save_end_date_meta_box_data') );
+		add_action( 'save_post', array( $this, 'persist_meta_box_data') );
 
 		//enqueue scripts
 		add_action( 'admin_enqueue_scripts', array( $this, 'assets' ) );
@@ -102,6 +102,7 @@ class KEPLER_ADMIN {
 				'title'		=> 'Add Poll Choices',
 				'box_html'	=> 'poll_choices_mb_html',
 				'context'	=> 'normal',
+				'priority'	=> 'high',
 			),
 		);
 		
@@ -116,7 +117,7 @@ class KEPLER_ADMIN {
 				array( $this, $meta_box['box_html'] ),
 				'kepler_poll',
 				isset( $meta_box['context'] ) ? $meta_box['context'] : 'side',
-				'default',
+				isset( $meta_box['priority'] ) ? $meta_box['priority'] : 'default',
 				$meta_box
 			);
 		}
@@ -133,10 +134,10 @@ class KEPLER_ADMIN {
 	}
 
 
-	function save_end_date_meta_box_data( $post_id ) {
 
-
-	    // If this is an autosave, our form has not been submitted, so we don't want to do anything.
+	function persist_meta_box_data( $post_id ) {
+		
+		// If this is an autosave, our form has not been submitted, so we don't want to do anything.
 	    if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
 	        return;
 	    }
@@ -146,16 +147,53 @@ class KEPLER_ADMIN {
 	    	return;
 	    }
 
-	    // Make sure that it is set.
-	    if ( ! isset( $_POST['_kepler_end_date'] ) ) {
-	        return;
-	    }
+	    $meta_box_keys = array(
+	    	"meta" 		=> "_kepler_end_date",
+	    	"choices" 	=> "_kepler_poll_choice",
+	    );
 
-	    // Sanitize user input.
-	    $end_date = sanitize_text_field( $_POST['_kepler_end_date'] );
+	    $this->sanitize_and_save( $post_id, $meta_box_keys);
 
-	    // Update the meta field in the database.
-	    update_post_meta( $post_id, '_kepler_end_date', $end_date );
+	}
+
+	function sanitize_and_save( $post_id, $keys ){
+					
+		if(count($keys)){
+			
+			foreach ($keys as $type => $key) {
+						
+				if( ! isset( $_POST[$key] ) ){
+					return;
+				} 
+
+				if( 'meta' == $type ) {
+					
+					$data = sanitize_text_field( $_POST[$key] );
+					update_post_meta( $post_id, $key, $data );
+				
+				}
+
+				if( 'choices' == $type ) {
+					$poll_choices = $_POST[$key];
+					
+					if( is_array($poll_choices) && count($poll_choices) ) {
+						
+						$choices = array();
+						
+						foreach ($poll_choices as $poll_choice) {
+							if($poll_choice != ''){
+								$choices[] = sanitize_text_field($poll_choice);	
+							}
+						}
+
+						//pass $choices to handler function of choice db	
+						//print_r($choices); wp_die();
+					}
+					
+				} 
+			}
+		}
+	    
 	}
 
 

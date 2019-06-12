@@ -1,11 +1,10 @@
-
-<div class='poll-choice-wrapper'>
-	<div class="keler-choice-item">
-		<input type='text' class='regular-text' name='add-poll-choice[0]'   placeholder='Choice'>	
+<div class='kepler-choice-wrapper'>
+	<div class="kepler-choice-item">
+		<input type='text' class='regular-text' name='_kepler_poll_choice[0]'   placeholder='Enter Choice'>	
 	</div>
 	
-	<div class="keler-choice-item">
-		<input type='text' class='regular-text' name='add-poll-choice[1]'   placeholder='Choice'>	
+	<div class="kepler-choice-item">
+		<input type='text' class='regular-text' name='_kepler_poll_choice[1]'   placeholder='Enter Choice'>	
 	</div>
 </div>
 

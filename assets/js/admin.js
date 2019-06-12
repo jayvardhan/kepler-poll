@@ -17,12 +17,13 @@ jQuery(document).ready(function($){
 		repeatHandler: function(e) {
 			e.preventDefault();
 
-			var el = '<div class="kepler-choice-item"><button class="choice-remove-btn">x</button><input type="text" class="regular-text" name="add-poll-choice['+ 
+			var el = '<div class="kepler-choice-item"><button class="choice-remove-btn">x</button>'+
+						'<input type="text" class="regular-text" name="_kepler_poll_choice['+ 
 						this.counter +
-					 ']" placeholder="Choice"></div>';
+					 ']" placeholder="Enter Choice"></div>';
 
 			//append choice-item
-			$('.poll-choice-wrapper').append(el);
+			$('.kepler-choice-wrapper').append(el);
 
 			//increase counter
 			this.counter++;
