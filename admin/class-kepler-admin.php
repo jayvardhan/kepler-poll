@@ -135,7 +135,7 @@ class KEPLER_ADMIN {
 
 
 
-	function persist_meta_box_data( $post_id ) {
+	function persist_meta_box_data( $poll_id ) {
 		
 		// If this is an autosave, our form has not been submitted, so we don't want to do anything.
 	    if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
@@ -143,7 +143,7 @@ class KEPLER_ADMIN {
 	    }
 
 	    // Check the user's permissions.
-	    if ( ! (isset( $_POST['post_type'] ) && 'kepler_poll' == $_POST['post_type'] ) || ! current_user_can( 'edit_page', $post_id )) {
+	    if ( ! (isset( $_POST['post_type'] ) && 'kepler_poll' == $_POST['post_type'] ) || ! current_user_can( 'edit_page', $poll_id )) {
 	    	return;
 	    }
 
@@ -152,11 +152,11 @@ class KEPLER_ADMIN {
 	    	"choices" 	=> "_kepler_poll_choice",
 	    );
 
-	    $this->sanitize_and_save( $post_id, $meta_box_keys);
+	    $this->sanitize_and_save( $poll_id, $meta_box_keys);
 
 	}
 
-	function sanitize_and_save( $post_id, $keys ){
+	function sanitize_and_save( $poll_id, $keys ){
 					
 		if(count($keys)){
 			
@@ -169,7 +169,7 @@ class KEPLER_ADMIN {
 				if( 'meta' == $type ) {
 					
 					$data = sanitize_text_field( $_POST[$key] );
-					update_post_meta( $post_id, $key, $data );
+					update_post_meta( $poll_id, $key, $data );
 				
 				}
 

@@ -5,7 +5,7 @@ class KEPLER_BASE{
 	private static $instance = null;
 		
 	// SINGLETON DESIGN PATTERN - NEEDS TO BE IMPLEMENTED IN EACH CHILD
-	public static function getInstance(){
+	public static function get_instance(){
 		
 		if( self::$instance == null ){
 			self::$instance = array();
