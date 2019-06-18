@@ -12,15 +12,16 @@ jQuery(document).ready(function($){
 		
 		init: function (){
 			$('.add-choice-btn').on('click', this.repeatHandler.bind(this));
+			$('.choice-remove-btn').on( 'click', this.choiceRemoveHandler.bind(this));
 		},
 
 		repeatHandler: function(e) {
 			e.preventDefault();
 
-			var el = '<div class="kepler-choice-item"><button class="choice-remove-btn">x</button>'+
+			var el = '<li class="kepler-choice-item"><button class="choice-remove-btn">x</button>'+
 						'<input type="text" class="regular-text" name="_kepler_poll_choice['+ 
 						this.counter +
-					 '][title]" placeholder="Enter Choice"><input type="hidden" name="_kepler_poll_choice['+ this.counter +'][id]"></div>';
+					 '][title]" placeholder="Enter Choice"><input type="hidden" name="_kepler_poll_choice['+ this.counter +'][id]"></li>';
 
 			//append choice-item
 			$('.kepler-choice-wrapper').append(el);
@@ -43,7 +44,7 @@ jQuery(document).ready(function($){
 		choiceRemoveHandler: function(e){
 			e.preventDefault();
 
-			$(e.target).closest('div').remove();
+			$(e.target).closest('li').remove();
 
 			console.log('add implementation for choice removal');
 		}

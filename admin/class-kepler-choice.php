@@ -25,10 +25,24 @@ class KEPLER_CHOICE extends KEPLER_DB_BASE {
 		
 	}
 
+	function get_choices($poll_id) {
+		global $wpdb;
+		$table = $this->get_table();
+
+		if($poll_id) {
+			$query = "SELECT ID, choice FROM $table WHERE poll_id=$poll_id";
+
+			return $wpdb->get_results($query);
+
+		}
+
+	}
+
 	//update existing choice
 	function update( $choice ) {
 		global $wpdb;
 		$table = $this->get_table();
+		
 		if($choice['title'] != ''){
 			$wpdb->update( 
 				$table, 

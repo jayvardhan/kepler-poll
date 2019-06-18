@@ -130,6 +130,7 @@ class KEPLER_ADMIN {
 	}
 
 	function poll_choices_mb_html( $post, $metabox ) {
+		
 		include( 'templates/metabox-'. $metabox['id'] .'.php' );
 	}
 
