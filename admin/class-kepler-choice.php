@@ -10,8 +10,7 @@ class KEPLER_CHOICE extends KEPLER_DB_BASE {
 
 	
 	function create() {
-		global $wpdb;
-		$charset_collate = $wpdb->get_charset_collate();
+		$charset_collate = $this->get_charset_collate();
 
 		$table = $this->get_table();
 
@@ -22,7 +21,60 @@ class KEPLER_CHOICE extends KEPLER_DB_BASE {
 					PRIMARY KEY ( ID )
 				)$charset_collate;";
 		
-		$wpdb->query( $sql );
+		$this->query($sql);
+		
+	}
+
+	//update existing choice
+	function update( $choice ) {
+		global $wpdb;
+		$table = $this->get_table();
+		if($choice['title'] != ''){
+			$wpdb->update( 
+				$table, 
+				array( 'choice' => $choice['title']), 
+				array( 'ID' => $choice['id'] ) 
+			);	
+		}
+		
+	}
+
+	//insert choices in db table; accepts array
+	function insert( $poll_id, $choice ) {
+		global $wpdb;
+		$table = $this->get_table();
+
+		if( $choice['title'] != '' ) {
+			$wpdb->insert(
+				$table,
+				array(
+					'poll_id'	=> $poll_id,
+					'choice'	=> $choice['title']	
+				),
+				array( '%d', '%s' )
+			);
+		}
+		
+		
+	}
+
+	function sanitize( $data ){
+		if( is_array($data) ) {
+			
+			$sanitized_data = array();
+			
+			foreach($data as $data_item){
+				if(is_array($data_item)){
+					$sanitized_data[] = array(
+						'title' => sanitize_text_field( $data_item['title'] ),
+						'id'	=> absint( $data_item['id'] ),
+					);	
+				}
+			}
+			return $sanitized_data;
+		}
+
+		
 
 	}
 

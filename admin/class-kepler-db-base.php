@@ -31,6 +31,19 @@ class KEPLER_DB_BASE extends KEPLER_BASE {
 		return $this->table;
 	}
 
+	//wrapper around wpdb -> charset collate
+	function get_charset_collate(){
+		global $wpdb;
+		return $wpdb->get_charset_collate();
+	}
+
+
+	// wrapper around wpdb->query
+	function query( $sql ){
+		global $wpdb;
+		return $wpdb->query( $sql );
+	}
+
 	function create() {
 		//to be implemented by child class for creating database tables
 	}

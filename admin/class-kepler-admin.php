@@ -166,6 +166,7 @@ class KEPLER_ADMIN {
 					return;
 				} 
 
+				//save end-date
 				if( 'meta' == $type ) {
 					
 					$data = sanitize_text_field( $_POST[$key] );
@@ -173,21 +174,29 @@ class KEPLER_ADMIN {
 				
 				}
 
+				//save choices
 				if( 'choices' == $type ) {
 					$poll_choices = $_POST[$key];
 					
 					if( is_array($poll_choices) && count($poll_choices) ) {
 						
-						$choices = array();
+						require_once('class-kepler-choice.php');
+						$choice_db = KEPLER_CHOICE::get_instance();
+						
+						$poll_choices = $choice_db->sanitize($poll_choices);
 						
 						foreach ($poll_choices as $poll_choice) {
-							if($poll_choice != ''){
-								$choices[] = sanitize_text_field($poll_choice);	
+							
+							if($poll_choice[id]) {
+								
+								$choice_db->update( $poll_choice );
+
+							} else if( strlen($poll_choice['title']) ) {
+								
+								$choice_db->insert( $poll_id, $poll_choice );
 							}
 						}
 
-						//pass $choices to handler function of choice db	
-						//print_r($choices); wp_die();
 					}
 					
 				} 

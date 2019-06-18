@@ -20,7 +20,7 @@ jQuery(document).ready(function($){
 			var el = '<div class="kepler-choice-item"><button class="choice-remove-btn">x</button>'+
 						'<input type="text" class="regular-text" name="_kepler_poll_choice['+ 
 						this.counter +
-					 ']" placeholder="Enter Choice"></div>';
+					 '][title]" placeholder="Enter Choice"><input type="hidden" name="_kepler_poll_choice['+ this.counter +'][id]"></div>';
 
 			//append choice-item
 			$('.kepler-choice-wrapper').append(el);
