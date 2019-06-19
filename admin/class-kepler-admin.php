@@ -148,12 +148,13 @@ class KEPLER_ADMIN {
 	    	return;
 	    }
 
-	    $meta_box_keys = array(
-	    	"meta" 		=> "_kepler_end_date",
-	    	"choices" 	=> "_kepler_poll_choice",
+	    $form_data_keys = array(
+	    	"end_date" 		=> "_kepler_end_date",
+	    	"choice_items" 	=> "_kepler_poll_choice",
+	    	"delete_items" 	=> "_kepler_choice_delete",	
 	    );
 
-	    $this->sanitize_and_save( $poll_id, $meta_box_keys);
+	    $this->sanitize_and_save( $poll_id, $form_data_keys);
 
 	}
 
@@ -168,7 +169,7 @@ class KEPLER_ADMIN {
 				} 
 
 				//save end-date
-				if( 'meta' == $type ) {
+				if( 'end_date' == $type ) {
 					
 					$data = sanitize_text_field( $_POST[$key] );
 					update_post_meta( $poll_id, $key, $data );
@@ -176,19 +177,19 @@ class KEPLER_ADMIN {
 				}
 
 				//save choices
-				if( 'choices' == $type ) {
+				if( 'choice_items' == $type ) {
 					$poll_choices = $_POST[$key];
 					
 					if( is_array($poll_choices) && count($poll_choices) ) {
 						
-						require_once('class-kepler-choice.php');
+						//require_once('class-kepler-choice.php');
 						$choice_db = KEPLER_CHOICE::get_instance();
 						
 						$poll_choices = $choice_db->sanitize($poll_choices);
 						
 						foreach ($poll_choices as $poll_choice) {
 							
-							if($poll_choice[id]) {
+							if($poll_choice['id']) {
 								
 								$choice_db->update( $poll_choice );
 
@@ -200,6 +201,17 @@ class KEPLER_ADMIN {
 
 					}
 					
+				}
+
+				//delete choice
+				if( 'delete_items' == $type ){
+
+					$delete_ids = $_POST[$key];
+					
+					if(strlen($delete_ids)){
+						$choice_ids = array_map( 'trim', explode(',', $delete_ids));
+						$choice_db->delete( $choice_ids );
+					}
 				} 
 			}
 		}

@@ -55,10 +55,10 @@ class KEPLER_CHOICE extends KEPLER_DB_BASE {
 
 	//insert choices in db table; accepts array
 	function insert( $poll_id, $choice ) {
-		global $wpdb;
-		$table = $this->get_table();
-
 		if( $choice['title'] != '' ) {
+			global $wpdb;
+			$table = $this->get_table();
+
 			$wpdb->insert(
 				$table,
 				array(
@@ -67,9 +67,18 @@ class KEPLER_CHOICE extends KEPLER_DB_BASE {
 				),
 				array( '%d', '%s' )
 			);
+		}	
+	}
+
+	//accepts array
+	function delete( $choice_ids ) {
+		if( is_array($choice_ids) ) {
+			global $wpdb;
+			$table = $this->get_table();
+			$ids_str = implode( ',', $choice_ids );
+			$query = "DELETE FROM $table WHERE ID IN ($ids_str);";
+			$wpdb->query( $query );
 		}
-		
-		
 	}
 
 	function sanitize( $data ){
@@ -94,4 +103,3 @@ class KEPLER_CHOICE extends KEPLER_DB_BASE {
 
 } //end of class
 
-$choice_db = KEPLER_CHOICE::get_instance();

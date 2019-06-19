@@ -1,5 +1,5 @@
 <?php
-	require_once __DIR__.'/../class-kepler-choice.php';
+	//require_once __DIR__.'/../class-kepler-choice.php';
 	
 	$choice_db = KEPLER_CHOICE::get_instance();
 	$choice_list = $choice_db->get_choices($post->ID); ?>
@@ -41,6 +41,7 @@
 	</ul>
 
 	<button  class='button add-choice-btn'>+ Add Choice</button>
+	<input type="hidden" name="_kepler_choice_delete" value="">
 
 	
 
