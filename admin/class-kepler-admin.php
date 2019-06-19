@@ -31,7 +31,7 @@ class KEPLER_ADMIN {
 	    wp_enqueue_script('jquery-ui-datepicker');
 	    
 	    //jQuery UI theme css file
-	    wp_enqueue_style('kepler-jquery-ui-css','http://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css',false,"1.12.1",false);
+	    wp_enqueue_style('kepler-jquery-ui-css','https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css',false,"1.12.1",false);
 
 	    wp_enqueue_style(
 	    	'kepler-admin-css',
