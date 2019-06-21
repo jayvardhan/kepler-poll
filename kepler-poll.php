@@ -19,6 +19,7 @@
 	$inc_files = array(
 		'class-kepler-base.php',
 		'admin/admin.php',
+		'frontend/frontend.php'
 	);
 
 	foreach( $inc_files as $file ) {
