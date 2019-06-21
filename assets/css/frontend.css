@@ -1,0 +1,40 @@
+.kepler-poll {
+	border: 1px solid #d30000;
+    padding: 22px 22px 26px 22px;
+    max-width:450px;
+}
+
+.kepler-brand {
+	padding: 5px 8px;
+    background: #d30000;
+    color: #fff;
+    font-family: "Goudy Old Style";
+}
+
+.kepler-poll-author {
+	margin-top: 5px;
+	font-size: 85%;
+	color: #777;
+	text-transform: capitalize;
+}
+
+.kepler-poll-question {
+	margin: 20px 0px;
+    font-size: 24px;
+    font-weight: bold;
+    text-transform: capitalize;
+}
+
+ul.kepler-choice {
+	list-style: none;
+}
+
+.kepler-choice .kepler-choice-item {
+	border-color: #fff !important;
+    font-weight: bold;
+    font-size:14px;
+    margin-bottom: 8px;
+    padding:8px;
+    text-align: left;
+    white-space: normal;
+}
