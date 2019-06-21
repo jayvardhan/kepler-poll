@@ -27,6 +27,7 @@
 
 ul.kepler-choice {
 	list-style: none;
+    padding-inline-start:0px;
 }
 
 .kepler-choice .kepler-choice-item {
