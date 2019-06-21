@@ -31,11 +31,17 @@ ul.kepler-choice {
 }
 
 .kepler-choice .kepler-choice-item {
-	border-color: #fff !important;
+	border-color: #fff;
     font-weight: bold;
     font-size:14px;
     margin-bottom: 8px;
     padding:8px;
     text-align: left;
     white-space: normal;
+}
+
+.kepler-choice .kepler-choice-item:hover {
+    cursor: pointer;
+    background-color: #d30000!important
+    ;
 }

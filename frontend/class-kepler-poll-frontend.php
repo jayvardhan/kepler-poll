@@ -57,8 +57,11 @@ class KEPLER_POLL_FRONTEND {
 
 		if( is_array($choices) && count($choices) ) {
 
-			$ajax_url	= admin_url('admin-ajax.php').'?action=yka_submit_vote';
-			$nonce		= wp_create_nonce('YKA-POLL'.$poll['ID']);
+			require_once 'class-kepler-poll-vote.php';
+			$vote_obj = KEPLER_POLL_VOTE::get_instance();
+
+			$ajax_url	= admin_url('admin-ajax.php').'?action='. $vote_obj->get_ajax_slug();
+			$nonce		= wp_create_nonce('KEPLER-POLL'.$poll['ID']);
 
 			ob_start();
 			

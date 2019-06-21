@@ -19,7 +19,8 @@
 	$inc_files = array(
 		'class-kepler-base.php',
 		'admin/admin.php',
-		'frontend/frontend.php'
+		'frontend/frontend.php',
+		'frontend/class-kepler-poll-vote.php',
 	);
 
 	foreach( $inc_files as $file ) {
