@@ -18,7 +18,7 @@ $(document).ready(function() {
 	        	url: url,
 	        	context:contextClass,
 	        	success: function(response){ 
-	        		console.log(response);
+	        		$('.'+this)[0].innerHTML = response;
 	        	}
 			});
 		});

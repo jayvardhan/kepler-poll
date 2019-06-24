@@ -39,7 +39,7 @@ class KEPLER_FRONTEND {
 	function poll_html( $atts ) {
 		$poll_id = $atts['id'];
 
-		require_once('class-kepler-poll-frontend.php');
+		require_once plugin_dir_path( __FILE__ ) . 'class-kepler-poll-frontend.php';
 		$poll_frontend = new KEPLER_POLL_FRONTEND( $poll_id );
 		return $poll_frontend->html();
 	}

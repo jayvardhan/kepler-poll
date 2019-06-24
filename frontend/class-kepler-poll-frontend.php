@@ -1,12 +1,21 @@
 <?php
 
-class KEPLER_POLL_FRONTEND {
+require_once plugin_dir_path(__DIR__) . 'class-kepler-base.php';
+require_once plugin_dir_path(__FILE__). 'class-kepler-poll-vote.php';
 
-	//type array : holds poll data 
-	var $poll;
 
+class KEPLER_POLL_FRONTEND extends KEPLER_BASE {
+
+	/*type array : holds poll data */
+	var $poll; 
+
+	/*type array: holds colors for choice options*/
+	var $colors = array('#ffe981', '#c2f5d9', '#82dffc', '#f5cfbf'); 
+
+	
 	function __construct( $id ) {
 		$this->set_poll($id);
+		$this->set_choice_colors();
 	}
 
 	
@@ -42,22 +51,33 @@ class KEPLER_POLL_FRONTEND {
 		return get_post_meta( $id, '_kepler_end_date', true );
 	}
 
-	function is_voted( $id ) {
-		//todo: implementation
+	function get_choice_colors() {
+		return $this->colors;
+	}
 
-		return false;
+	function set_choice_colors( $colors = null ) {
+		if( is_array($colors) && count($colors) ) {
+			$this->colors = $colors;
+		}
 	}
 
 
-		//helper function to generate markup for poll choice
+
+	function is_voted( $id ) {
+
+		$kepler_vote = KEPLER_POLL_VOTE::get_instance();
+		return $kepler_vote->is_voted( $id );
+		
+	}
+
+
+	//helper function to generate markup for poll choice
 	function get_choice_markup($poll_id) {
 		$poll = $this->get_poll();
-		//var_dump($poll);
 		$choices = $poll['poll_choices'];
 
 		if( is_array($choices) && count($choices) ) {
 
-			require_once 'class-kepler-poll-vote.php';
 			$vote_obj = KEPLER_POLL_VOTE::get_instance();
 
 			$ajax_url	= admin_url('admin-ajax.php').'?action='. $vote_obj->get_ajax_slug();
@@ -86,23 +106,24 @@ class KEPLER_POLL_FRONTEND {
 			
 			$poll_choice_markup = "";
 			
-
 				//check if poll is already voted by user
-				$voted =  $this->is_voted( $poll['ID'] );
+				$kepler_vote = KEPLER_POLL_VOTE::get_instance();
+
+				$voted =  $kepler_vote->is_voted( $poll['ID'] );
 				
 				if( !$voted ){
 					// get poll choice
 					$poll_choice_markup .= $this->get_choice_markup( $poll['ID'] );	
 
 				} else { 
-					/* IF VOTED THEN SHOW ONLY THE RESULTS */
+
+					$poll_user_id = 0;
+					if( isset( $poll['post_author'] ) ){ $poll_user_id = $poll['post_author']; }
 					
-					echo "Provide implementation for poll result";
+					$poll_choice_markup = $kepler_vote->get_poll_result( $poll['ID'], $poll_user_id );
 				}
 
 				include 'partials/poll-html.php';
-
-			
 		
 		} else {
 			echo "Invalid Poll";

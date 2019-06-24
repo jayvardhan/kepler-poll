@@ -1,5 +1,5 @@
 <?php 
-	$colors = array('#ffe981', '#c2f5d9', '#82dffc', '#f5cfbf');
+	$colors = $this->get_choice_colors();
 	$len 	= count($colors);	
 	$i 		= 0;
 ?>

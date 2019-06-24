@@ -1,3 +1,11 @@
+.kepler-left {
+    float:left;
+}
+
+.kepler-right {
+    float:right;
+}
+
 .kepler-poll {
 	border: 1px solid #d30000;
     padding: 22px 22px 26px 22px;
@@ -30,7 +38,7 @@ ul.kepler-choice {
     padding-inline-start:0px;
 }
 
-.kepler-choice .kepler-choice-item {
+.kepler-choice .kepler-choice-item, .kepler-choice .kepler-choice-result {
 	border-color: #fff;
     font-weight: bold;
     font-size:14px;
