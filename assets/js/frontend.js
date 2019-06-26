@@ -1,4 +1,4 @@
-$(document).ready(function() {
+jQuery(document).ready(function($) {
 	$('.kepler-choice-item').each(function(choice) {
 		$(this).on('click', function(e){
 			e.preventDefault();

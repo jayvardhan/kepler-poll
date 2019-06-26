@@ -66,7 +66,7 @@ class KEPLER_POLL_VOTE extends KEPLER_DB_BASE {
 		if( $user_id != 0 ) {
 			global $wpdb;
 			$choice_table = $this->get_choice_table();
-			$result_table = $this->polls_result;
+			$result_table = $this->get_table();
 
 			$query = "SELECT $result_table.choice_id
 						FROM $result_table JOIN $choice_table
