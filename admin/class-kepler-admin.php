@@ -61,7 +61,8 @@ class KEPLER_ADMIN {
 								'add_new_item'	=> 'Add New Poll',
 							),
 			'supports'	=> array( 'title','author' ),
-			'menu_icon'	=> 'dashicons-megaphone'
+			'menu_icon'	=> 'dashicons-megaphone',
+			'rewrite'	=> array( 'slug' => 'poll' ),
 		);
 
 		register_post_type( $args['slug'],
@@ -73,7 +74,8 @@ class KEPLER_ADMIN {
 				'query_var' 			=> true,
 				'has_archive' 			=> true,
 				'menu_icon'				=> isset( $args['menu_icon'] ) ? $args['menu_icon'] : 'dashicons-images-alt',
-				'supports'				=>	$args['supports']
+				'supports'				=>	$args['supports'],
+				'rewrite'				=> $args['rewrite']
 			)
 		);
 	}

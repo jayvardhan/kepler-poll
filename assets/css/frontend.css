@@ -7,6 +7,7 @@
 }
 
 .kepler-poll {
+    font-family: 'Montserrat', sans-serif;
 	border: 1px solid #d30000;
     padding: 22px 22px 26px 22px;
     max-width:450px;
@@ -51,6 +52,7 @@ ul.kepler-choice {
 
 .kepler-choice .kepler-choice-item:hover {
     cursor: pointer;
+    color: #fff;
     background-color: #d30000!important
     ;
 }
