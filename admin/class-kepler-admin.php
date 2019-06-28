@@ -57,8 +57,8 @@ class KEPLER_ADMIN extends KEPLER_BASE {
 		$args = array(
 			'slug'		=> 'kepler_poll',
 			'labels' 	=> array(
-								'name' 			=> 'Kepler Polls',
-								'singular_name' => 'Kepler Poll',
+								'name' 			=> 'Polls',
+								'singular_name' => 'Poll',
 								'add_new_item'	=> 'Add New Poll',
 							),
 			'supports'	=> array( 'title','author' ),
@@ -75,7 +75,7 @@ class KEPLER_ADMIN extends KEPLER_BASE {
 				'query_var' 			=> true,
 				'has_archive' 			=> true,
 				'menu_icon'				=> isset( $args['menu_icon'] ) ? $args['menu_icon'] : 'dashicons-images-alt',
-				'supports'				=>	$args['supports'],
+				'supports'				=> $args['supports'],
 				'rewrite'				=> $args['rewrite']
 			)
 		);
