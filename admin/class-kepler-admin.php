@@ -1,6 +1,7 @@
 <?php
 
-class KEPLER_ADMIN {
+
+class KEPLER_ADMIN extends KEPLER_BASE {
 
 	
 	function __construct() {
@@ -78,6 +79,8 @@ class KEPLER_ADMIN {
 				'rewrite'				=> $args['rewrite']
 			)
 		);
+
+		flush_rewrite_rules();
 	}
 
 	function add_poll_placeholder( $title , $post ){
@@ -88,6 +91,7 @@ class KEPLER_ADMIN {
 
         return $title;
 	}
+
 
 
 	function add_meta_boxes(){
@@ -223,4 +227,4 @@ class KEPLER_ADMIN {
 
 } //end of class
 
-new KEPLER_ADMIN();
+KEPLER_ADMIN::get_instance();

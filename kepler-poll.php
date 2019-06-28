@@ -28,12 +28,6 @@
 	}
 
 
-	function on_kepler_poll_activation() {
-		flush_rewrite_rules();
-	}
-	register_activation_hook( __FILE__, 'on_kepler_poll_activation' );
-
-
 	function on_kepler_poll_deactivation() {
 		flush_rewrite_rules();
 	}	
