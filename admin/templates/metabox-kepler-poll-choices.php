@@ -20,7 +20,7 @@
 					_e('<button class="choice-remove-btn">x</button>');
 				} ?>
 				
-				<input type='text' class='regular-text' name='<?php _e($input_field_name);?>'   placeholder='Enter Choice' value='<?php _e($choice->choice);?>' > 
+				<input type='text' class='regular-text' name='<?php _e($input_field_name);?>'   placeholder='Enter Choice' value="<?php _e(stripslashes($choice->choice));?>" > 
 				<input type='hidden' name='<?php _e($hidden_field_name);?>' value='<?php _e($choice->ID)?>'>	
 
 			</li> <?php 		
