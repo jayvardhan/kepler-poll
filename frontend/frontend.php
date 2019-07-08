@@ -8,9 +8,6 @@ class KEPLER_FRONTEND {
 		
 		add_shortcode('kepler_poll', array($this, 'poll_html'));
 
-		//enqueue scripts
-		add_action( 'wp_enqueue_scripts', array( $this, 'assets' ) );
-
 	}
 
 
@@ -25,7 +22,6 @@ class KEPLER_FRONTEND {
 	    	KEPLER_POLL_VERSION
 	    );
 
-	    //admin js file
 	    wp_enqueue_script(
 			'kepler-poll-js',
 			plugins_url( $plugin_assets_folder.'js/frontend.js' ),
@@ -38,6 +34,8 @@ class KEPLER_FRONTEND {
 	// kepler_poll shortcode callback
 	function poll_html( $atts ) {
 		$poll_id = $atts['id'];
+
+		$this->assets();
 
 		require_once plugin_dir_path( __FILE__ ) . 'class-kepler-poll-frontend.php';
 		$poll_frontend = new KEPLER_POLL_FRONTEND( $poll_id );

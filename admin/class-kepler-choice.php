@@ -82,6 +82,7 @@ class KEPLER_CHOICE extends KEPLER_DB_BASE {
 	}
 
 	function sanitize( $data ){
+				
 		if( is_array($data) ) {
 			
 			$sanitized_data = array();
