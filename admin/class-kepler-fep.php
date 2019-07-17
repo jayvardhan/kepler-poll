@@ -28,7 +28,13 @@ class KEPLER_FEP extends KEPLER_BASE {
 		);
 	}
 
-	function fep_form_cb() {
+	function fep_form_cb( $atts ) {
+
+		$args = shortcode_atts( array(
+				'redirect' => 'false'
+			), $atts );
+
+		$redirect = $args['redirect'];
 		$url	= admin_url('admin-ajax.php').'?action=kepler_poll_fep';
 		$token	= wp_create_nonce('KEPLER-POLL-FEP');
 
@@ -42,14 +48,14 @@ class KEPLER_FEP extends KEPLER_BASE {
 	function fep_ajax_cb() {
 		check_ajax_referer( 'KEPLER-POLL-FEP', 'token' );
 		
-		$shortcode = $this->create_poll( $_POST['question'], $_POST['choices'] );
+		$shortcode = $this->create_poll( $_POST['question'], $_POST['choices'] , $_POST['redirect']);
 
 		echo $shortcode;
 
 		wp_die();
 	}
 
-	function create_poll( $question, $choices ) {
+	function create_poll( $question, $choices, $redirect ) {
 		$question = sanitize_text_field($question);
 
 		$args = array(
@@ -78,7 +84,18 @@ class KEPLER_FEP extends KEPLER_BASE {
 
 		}
 
-		return "[kepler_poll id=$poll_id]";
+		$redirect = (bool) $redirect;
+		$result = array(
+			"id" => $poll_id,
+			"shortcode" => "[kepler_poll id=$poll_id]",
+		);
+
+		
+		if( $redirect ) {
+			$result['redirectUrl'] = get_the_permalink($poll_id);;
+		}
+
+		return wp_json_encode($result);
 	}
 }
 

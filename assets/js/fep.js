@@ -15,11 +15,12 @@ jQuery(document).ready(function($) {
 
 
 	//event handler to create new poll 
-	var poll = $('.kepler-poll-form');
-	var url = poll.attr("data-url");
-	var token = poll.attr("data-token"); 
-	
-	var result = $('.add-poll-result');
+	var poll 	 = $('.kepler-poll-form');
+	var url 	 = poll.attr("data-url");
+	var token 	 = poll.attr("data-token"); 
+	var redirect = poll.attr("data-redirect");
+
+	var result 	 = $('.add-poll-result');
 
 	var createPoll = $('#kepler-create-poll');
 	createPoll.on('click', function(e){
@@ -54,9 +55,10 @@ jQuery(document).ready(function($) {
 		loader.css("display", "inline-block");
 
 		var data = {
-			'token'		: token,		
-			'question'	: question.val(),
-			'choices' 	: choices
+			'token'	   : token,		
+			'question' : question.val(),
+			'choices'  : choices,
+			'redirect' : redirect,
 		};
 		
 
@@ -64,14 +66,23 @@ jQuery(document).ready(function($) {
 			url,
 			data,
 			function(response){
-				result.html(response);
-				result.css('display', 'block');
+				response = JSON.parse(response);
+				loader.css('display','none');
 
-				if(typeof tinymce !== 'undefined') {
-					tinymce.activeEditor.execCommand('mceInsertContent', false, response);
+				
+				if(response.redirectUrl !== undefined && response.redirectUrl){
+					
+					window.location.replace(response.redirectUrl+"?success=1");
+					return;
 				}
 
-				loader.css('display','none');
+				result.css('display', 'block');
+				result.html(response.shortcode);
+
+				if(typeof tinymce !== 'undefined') {
+					tinymce.activeEditor.execCommand('mceInsertContent', false, response.shortcode);
+				}
+
 				//$('#kepler-poll-modal').modal('hide');
 
 			}

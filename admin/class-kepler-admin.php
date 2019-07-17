@@ -20,6 +20,9 @@ class KEPLER_ADMIN extends KEPLER_BASE {
 
 		//enqueue scripts
 		add_action( 'admin_enqueue_scripts', array( $this, 'assets' ) );
+
+		//add sidebar widget 
+		add_action( 'widgets_init', array( $this, 'add_sidebar') );
 	}
 
 	
@@ -222,6 +225,18 @@ class KEPLER_ADMIN extends KEPLER_BASE {
 			}
 		}
 	    
+	}
+
+	function add_sidebar() {
+		register_sidebar(array(
+			'name' 			=> 'Kepler Poll Sidebar',
+			'id' 			=> 'kepler-poll-sidebar',
+			'description' 	=> 'Appears in Poll Sidebar Template',
+			'before_widget' => '<aside id="%1$s" class="widget %2$s">',
+			'after_widget' 	=> "</aside>",
+			'before_title' 	=> '<h4>',
+			'after_title' 	=> '</h4>'
+		));
 	}
 
 

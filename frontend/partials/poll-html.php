@@ -1,4 +1,3 @@
-
 <div class="kepler-poll">
 	<div class="kepler-header">
 		<span class='kepler-brand'>YOUTH KI AWAAZ POLL</span>
