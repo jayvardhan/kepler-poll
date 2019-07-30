@@ -87,7 +87,7 @@ class KEPLER_FEP extends KEPLER_BASE {
 		$redirect = (bool) $redirect;
 		$result = array(
 			"id" => $poll_id,
-			"shortcode" => "[kepler_poll id=$poll_id]",
+			"shortcode" => "[yka_polls id=$poll_id]",
 		);
 
 		
