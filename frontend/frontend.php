@@ -6,7 +6,7 @@ class KEPLER_FRONTEND {
 
 		add_filter( 'the_content', array( $this, 'the_content_cb' ) );
 		
-		add_shortcode('kepler_poll', array($this, 'poll_html'));
+		add_shortcode('yka_polls', array($this, 'poll_html'));
 
 	}
 
