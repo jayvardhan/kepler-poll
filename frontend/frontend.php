@@ -77,19 +77,11 @@ class KEPLER_FRONTEND {
 
 		
 		if($polls) {
-
-			//echo "<pre>"; print_r($polls);echo "</pre>";
-
-			foreach ($polls as $poll ) {
-				echo $this->poll_html( array( "id" => $poll->poll_id ) );
-
-			}
-
-			 
+			
+			include 'partials/trending-polls.php';
 
 		} else {
-			//most likely if polls doesn't have any votes yet, toss this message 
-			echo "<span class='btn-danger'>Try using orderby='latest' as parameter!</span>";
+			echo "<span class='btn-danger'>Polls Not Available!</span>";
 		}
 
 	}
@@ -106,11 +98,11 @@ class KEPLER_FRONTEND {
 		$vote_db 	= KEPLER_POLL_VOTE::get_instance();
 			
 
-		//$key_params =  array($limit, $atts['cache_hour'], $atts['orderby'], $atts['offset']);
+		$key_params =  array($limit, $atts['cache_hour'], $atts['offset']);
 		
-		//$transient_key = 'yka_trending_polls_'. $this->get_unique_id($key_params);
+		$transient_key = 'kepler_trending_polls_'. $this->get_unique_id($key_params);
 		
-		//$data = get_transient( $transient_key );
+		$data = get_transient( $transient_key );
 
 		if( $data === false ) {
 			
@@ -130,8 +122,8 @@ class KEPLER_FRONTEND {
 			$data = $wpdb->get_results( $query );	
 
 
-			//$cache_time = ((int) $atts['cache_hour']) * HOUR_IN_SECONDS;
-			//set_transient( $transient_key, $data, $cache_time );
+			$cache_time = ((int) $atts['cache_hour']) * HOUR_IN_SECONDS;
+			set_transient( $transient_key, $data, $cache_time );
 
 		}
 
@@ -140,6 +132,12 @@ class KEPLER_FRONTEND {
 
 
 	}
+
+
+	//$data : array | string. 
+	function get_unique_id( $data ){
+        return substr( md5( json_encode( $data ) ), 0, 8 );
+    }
 
 
 	
