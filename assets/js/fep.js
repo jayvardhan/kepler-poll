@@ -1,15 +1,15 @@
 jQuery(document).ready(function($) {
 
 	// choice field repeater
-	var addChoice = $('#add-choice-btn');
-	var choiceWrapper = $('.poll-choice-wrapper');
+	var addChoice = $('.kepler-choice-btn');
+	var choiceWrapper = $('.kepler-choice-wrapper');
 
 	addChoice.on('click', function(e){
 		var el = document.createElement('input');
 		el.type = 'text';
-		el.className = 'form-control add-poll-choice';
+		el.className = 'form-control kepler-add-choice';
 		el.setAttribute('placeholder', 'Choice');
-
+		//console.log('choice added from plugin js');
 		choiceWrapper.append(el);	
 	});	
 
@@ -20,13 +20,13 @@ jQuery(document).ready(function($) {
 	var token 	 = poll.attr("data-token"); 
 	var redirect = poll.attr("data-redirect");
 
-	var result 	 = $('.add-poll-result');
+	var result 	 = $('.kepler-poll-result');
 
-	var createPoll = $('#kepler-create-poll');
+	var createPoll = $('.kepler-create-poll');
 	createPoll.on('click', function(e){
 		e.preventDefault();
 
-		var question = $('#add-poll-question');
+		var question = $('.kepler-add-question');
 
 		if(question.val() === ""){
 			result.html("<h5>Give question for the Poll!</h5>");
@@ -35,7 +35,7 @@ jQuery(document).ready(function($) {
 		}
 
 
-		var choiceElements = $('.add-poll-choice');
+		var choiceElements = $('.kepler-add-choice');
 		
 		var choices = new Array(); 		
 		choiceElements.each(function(index, choice){
@@ -50,7 +50,7 @@ jQuery(document).ready(function($) {
 			return;
 		}
 
-		var loader = $('#kepler-create-poll .fa');
+		var loader = $('.kepler-create-poll .fa');
 
 		loader.css("display", "inline-block");
 
@@ -60,7 +60,8 @@ jQuery(document).ready(function($) {
 			'choices'  : choices,
 			'redirect' : redirect,
 		};
-		
+
+		//console.log(data);
 
 		$.post(
 			url,
