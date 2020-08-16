@@ -1,10 +1,15 @@
 <?php
 
-class KEPLER_FRONTEND {
+require_once plugin_dir_path(__DIR__) . 'class-kepler-base.php';
+
+
+class KEPLER_FRONTEND extends KEPLER_BASE {
 	
 	function __construct() {
 
 		add_filter( 'the_content', array( $this, 'the_content_cb' ) );
+
+		add_action( 'wp_enqueue_scripts', array( $this, 'assets' ) );
 		
 		add_shortcode('yka_polls', array($this, 'poll_html'));
 
@@ -37,7 +42,6 @@ class KEPLER_FRONTEND {
 	function poll_html( $atts ) {
 		$poll_id = $atts['id'];
 
-		$this->assets();
 
 		require_once plugin_dir_path( __FILE__ ) . 'class-kepler-poll-frontend.php';
 		$poll_frontend = new KEPLER_POLL_FRONTEND( $poll_id );

@@ -31,7 +31,7 @@ class KEPLER_FEP extends KEPLER_BASE {
 	function fep_form_cb( $atts ) {
 
 		$args = shortcode_atts( array(
-				'redirect' => 'false'
+				'redirect' => false
 			), $atts );
 
 		$redirect = $args['redirect'];
@@ -69,7 +69,7 @@ class KEPLER_FEP extends KEPLER_BASE {
 
 		$choice_db = KEPLER_CHOICE::get_instance();
 		$choices = $choice_db->sanitize($choices);	
-		
+
 		
 		// insert choices into table
 		if( is_array($choices) && count($choices) ) {

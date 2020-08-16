@@ -61,8 +61,7 @@ jQuery(document).ready(function($) {
 			'redirect' : redirect,
 		};
 
-		//console.log(data);
-
+		
 		$.post(
 			url,
 			data,
